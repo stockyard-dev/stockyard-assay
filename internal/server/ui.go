@@ -43,7 +43,7 @@ textarea{resize:vertical;min-height:60px}
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@0;1&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head><body>
 <div class="hdr"><h1><span>Assay</span></h1><button class="btn btn-p" onclick="showNewSuite()">+ Suite</button></div>
-<div class="main"><div id="suiteList"></div><div id="detail" style="display:none;margin-top:1rem"></div></div>
+<div class="main"><div id="upgrade-banner" style="display:none;background:#241e18;border:1px solid #8b3d1a;border-left:3px solid #c45d2c;padding:.6rem 1rem;font-size:.78rem;color:#bfb5a3;margin-bottom:.8rem"><strong style="color:#f0e6d3">Free tier</strong> — 10 items max. <a href="https://stockyard.dev/assay/" target="_blank" style="color:#e8753a">Upgrade to Pro →</a></div><div id="suiteList"></div><div id="detail" style="display:none;margin-top:1rem"></div></div>
 <div id="modal"></div>
 <script>
 let suites=[],curSuite=null;
@@ -131,4 +131,5 @@ async function delTest(id){await api('/api/tests/'+id,{method:'DELETE'});openSui
 async function delSuite(id){await api('/api/suites/'+id,{method:'DELETE'});curSuite=null;document.getElementById('detail').style.display='none';init()}
 function closeModal(){document.getElementById('modal').innerHTML=''}
 init()
+fetch('/api/tier').then(r=>r.json()).then(j=>{if(j.tier==='free'){var b=document.getElementById('upgrade-banner');if(b)b.style.display='block'}}).catch(()=>{var b=document.getElementById('upgrade-banner');if(b)b.style.display='block'});
 </script></body></html>`
